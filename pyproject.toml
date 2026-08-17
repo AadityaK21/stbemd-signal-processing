@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "st-bemd"
+version = "1.0.0"
+description = "Structure-tensor-guided bidimensional EMD for oriented 2-D signals"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "Aaditya Kumawat" }]
+keywords = ["emd", "bemd", "empirical-mode-decomposition", "structure-tensor",
+            "riesz-transform", "monogenic-signal", "fingerprint", "orientation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = [
+    "numpy>=1.23",
+    "scipy>=1.9",
+    "matplotlib>=3.6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+# Only fig6 in st_bemd/experiments.py needs this, for its sample texture.
+figures = ["scikit-image>=0.19"]
+
+[project.urls]
+Repository = "https://github.com/aadityakumawat/st-bemd"
+
+[tool.setuptools]
+packages = ["st_bemd"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]

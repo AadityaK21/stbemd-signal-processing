@@ -5,6 +5,9 @@ __pycache__/
 .ipynb_checkpoints/
 .venv/
 venv/
+*.egg-info/
+build/
+dist/
 
 # OS / editor
 .DS_Store
@@ -16,7 +19,13 @@ Thumbs.db
 .env
 *.key
 
-# Data (SOCOFing not redistributable) & generated outputs
+# Data — the SOCOFing scans are not redistributable.
+# Rebuild the arrays with: python scripts/fetch_data.py
 data/*.npy
-outputs/*.png
-outputs/*.npy
+data/*.npz
+
+# Generated outputs ARE tracked. Every number quoted in the README comes from
+# a file in outputs/, so a reader can check the claims without running anything.
+# Only the raw run logs are noise.
+outputs/*.log
+outputs/logs/

@@ -1,0 +1,44 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run the test suite
+        run: pytest tests/ -q
+
+      # The synthetic benchmark needs no download, so CI can prove the
+      # headline orientation comparison still runs end to end. The runtime
+      # sweep is excluded — timings on shared runners are meaningless.
+      - name: Smoke-test the benchmark CLI
+        run: |
+          python benchmark.py --mode sanity
+          python benchmark.py --mode orientation --size 64 --max-imfs 1 --max-sift 2
+
+      # Fails the build if a number in the README stops matching the committed
+      # results. The docs drifted from the artifacts once; this is the guard.
+      - name: Check the README against outputs/
+        run: python scripts/check_claims.py

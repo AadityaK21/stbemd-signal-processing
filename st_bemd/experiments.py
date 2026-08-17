@@ -27,7 +27,10 @@ plt.rcParams.update({
     "figure.dpi": 130, "font.size": 9, "axes.titlesize": 9,
     "axes.grid": False, "image.cmap": "RdBu_r",
 })
-FIG = "../figures"
+from _paths import FIGURES, RESULTS, ensure_outputs
+
+ensure_outputs()
+FIG = str(FIGURES)
 N = 80
 results = {}
 
@@ -183,8 +186,16 @@ def fig_kernel_motivation():
 # Figure 6 : real oriented texture decomposed by isotropic BEMD
 # ----------------------------------------------------------------------
 def fig_real_texture():
-    from skimage.data import brick
-    from skimage.transform import resize
+    # scikit-image supplies the sample texture and nothing else in this repo,
+    # so it is an optional extra rather than a hard dependency. Skip the figure
+    # rather than taking the whole run down with it.
+    try:
+        from skimage.data import brick
+        from skimage.transform import resize
+    except ImportError:
+        print("  skipping fig6_real_texture — needs scikit-image "
+              "(pip install 'st-bemd[figures]')")
+        return {}
     img = brick().astype(float)
     img = resize(img, (96, 96), anti_aliasing=True)
     img = (img - img.mean())
@@ -301,7 +312,7 @@ if __name__ == "__main__":
     fig_real_texture();       print("fig6 done")
     fig_varying_orientation();print("fig7 done")
     benchmark_table();        print("benchmark done")
-    with open("../results/results.json", "w") as fp:
+    with open(RESULTS / "results.json", "w") as fp:
         json.dump(results, fp, indent=2)
     print(f"\nALL DONE in {time.time()-t0:.1f}s")
     print(json.dumps(results, indent=2))

@@ -11,22 +11,24 @@ Reports on the fingerprint batch:
   iso-LOCAL  (rho=1) = stbemd(rho_max=1.0)    -- same envelope, circular kernel
   aniso-LOCAL(rho=4) = stbemd(rho_max=4.0)    -- the proposed method
 
-Findings (30 prints): total gain 11.84 -> 7.62 decomposes as
-  local-vs-global envelope : ~3.57 deg (~84%)   <- FABEMD-class idea, NOT novel
-  anisotropy itself        : ~0.65 deg (~16%), Wilcoxon p~0.045 (borderline)
-and the anisotropy gain does NOT grow with curvature (low +0.97, med +0.67,
-high -0.28) -- contradicting the proposed mechanism.
+Findings (30 prints, regenerated 2026-08-17): total gain 13.71 -> 8.25 decomposes as
+  local-vs-global envelope : ~4.29 deg (~78%)   <- FABEMD-class idea, NOT novel
+  anisotropy itself        : ~1.18 deg (~22%), better on 70%, Wilcoxon p=0.001
+and the anisotropy gain SHRINKS with curvature (low +1.42, med +1.13, high +0.20)
+-- the opposite of what the proposed mechanism predicts.
 
-Requires data/fp_batch.npy (or edit to fp_batch100.npy).
+Needs data/fp_batch.npy -- run scripts/fetch_data.py first.
 """
+import _bootstrap  # noqa: F401  (puts the source dirs on sys.path)
 import numpy as np
 from scipy import stats
 from structure_tensor import orientation_and_coherence
 from metrics import local_orientation_error as loe
 from bemd import bemd
 from stbemd import stbemd
+from _paths import fingerprint_batch
 
-batch = np.load("data/fp_batch.npy")
+batch = fingerprint_batch()
 
 def fold(a): return np.minimum(np.abs(a), np.pi-np.abs(a))
 def curv(th):

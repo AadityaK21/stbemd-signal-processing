@@ -2,3 +2,7 @@ numpy>=1.23
 scipy>=1.9
 matplotlib>=3.6
 pytest>=7.0
+
+# Only used for the sample brick texture in st_bemd/experiments.py (fig6).
+# Everything else in the repo runs without it; that one figure is skipped.
+scikit-image>=0.19

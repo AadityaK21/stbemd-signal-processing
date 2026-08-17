@@ -1,0 +1,68 @@
+{
+  "orientation_bias_mean_err": {
+    "pseudo-BEMD": 9.198237245045727,
+    "DEMD": 0.16071241740452108,
+    "isotropic BEMD": 0.05656831188037899
+  },
+  "serial_scan_offdiag_corr_mean": 0.6981075270614445,
+  "serial_scan_offdiag_corr_min": 0.5519919572542238,
+  "mean_coherence": {
+    "plane": 0.9782006779503924,
+    "two_orientation": 0.01951700116646045,
+    "varying": 0.9816929022543295
+  },
+  "benchmark_two_orientation": {
+    "pseudo-BEMD": {
+      "n_imfs": 6,
+      "recon_err": 1.0667384582494388e-16,
+      "orthogonality": 0.030997584018376566,
+      "separation": 0.680285882867021,
+      "runtime_s": 0.9879074096679688
+    },
+    "serial-EMD (row)": {
+      "n_imfs": 6,
+      "recon_err": 1.1033391952855195e-16,
+      "orthogonality": 0.06854705820719838,
+      "separation": 0.7122116145102222,
+      "runtime_s": 0.044200897216796875
+    },
+    "DEMD": {
+      "n_imfs": 6,
+      "recon_err": 1.8291042387147057e-17,
+      "orthogonality": 0.0015746505363986674,
+      "separation": 0.9123801706781234,
+      "runtime_s": 0.09216833114624023
+    },
+    "isotropic BEMD": {
+      "n_imfs": 3,
+      "recon_err": 6.602621768200582e-17,
+      "orthogonality": 0.0705957406449179,
+      "separation": 0.691321891979944,
+      "runtime_s": 0.035439252853393555
+    }
+  },
+  "benchmark_varying_orientation": {
+    "pseudo-BEMD": {
+      "orthogonality": 0.02359443782523547,
+      "local_orient_err_deg": 0.9800099299701145
+    },
+    "serial-EMD (row)": {
+      "orthogonality": 0.12029035459503117,
+      "local_orient_err_deg": 0.7097598322534698
+    },
+    "DEMD": {
+      "orthogonality": 0.03745435688463541,
+      "local_orient_err_deg": 6.7326524863442625
+    },
+    "isotropic BEMD": {
+      "orthogonality": 0.13142928323595707,
+      "local_orient_err_deg": 0.3114451823658572
+    }
+  },
+  "orientation_invariance_corr": {
+    "pseudo-BEMD": 0.6555027795394943,
+    "serial-EMD (row)": 0.9987911286977563,
+    "DEMD": 0.9983880930856253,
+    "isotropic BEMD": 0.999711310393112
+  }
+}

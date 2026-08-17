@@ -1,0 +1,93 @@
+{
+  "varying": {
+    "isotropic BEMD": {
+      "recon_err": 8.884384014383148e-17,
+      "loc_orient_err": 0.3324977388583098,
+      "energy_ratio": 1.4005934093694754,
+      "spectral_overlap": 0.7347161635456894,
+      "imf1_coherence": 0.9845643938942756,
+      "orthogonality": 0.24392801473315065,
+      "n_imfs": 3,
+      "runtime_s": 0.0949704647064209
+    },
+    "ST-BEMD": {
+      "recon_err": 9.681654312416076e-17,
+      "loc_orient_err": 0.3457241511831772,
+      "energy_ratio": 0.9934001349361036,
+      "spectral_overlap": 0.9155766472807426,
+      "imf1_coherence": 0.9788216278670964,
+      "orthogonality": 0.13148170668429235,
+      "n_imfs": 4,
+      "runtime_s": 0.20223021507263184
+    }
+  },
+  "fingerprint": {
+    "isotropic BEMD": {
+      "recon_err": 6.960989379443383e-17,
+      "loc_orient_err": 8.411984038169555,
+      "energy_ratio": 0.8604810587732823,
+      "spectral_overlap": 0.7425636906663475,
+      "imf1_coherence": 0.43210915233624114,
+      "orthogonality": 0.11407482122566474,
+      "n_imfs": 3,
+      "runtime_s": 0.39753174781799316
+    },
+    "ST-BEMD": {
+      "recon_err": 8.80701951634103e-17,
+      "loc_orient_err": 5.623825916922465,
+      "energy_ratio": 0.9414092899969939,
+      "spectral_overlap": 0.8801048125622822,
+      "imf1_coherence": 0.4327593552636069,
+      "orthogonality": 0.10278179071736454,
+      "n_imfs": 4,
+      "runtime_s": 0.31815600395202637
+    }
+  },
+  "two_orientation": {
+    "isotropic BEMD": {
+      "recon_err": 6.602621768200582e-17,
+      "loc_orient_err": 9.96800667399038,
+      "energy_ratio": 1.7593235456279814,
+      "spectral_overlap": 0.6073495353495291,
+      "imf1_coherence": 0.02613139258320934,
+      "orthogonality": 0.0705957406449179,
+      "n_imfs": 3,
+      "runtime_s": 0.03852510452270508,
+      "separation": 0.691321891979944
+    },
+    "ST-BEMD": {
+      "recon_err": 9.023756043832905e-17,
+      "loc_orient_err": 6.387297400900554,
+      "energy_ratio": 0.9737900234375269,
+      "spectral_overlap": 0.8634609463948918,
+      "imf1_coherence": 0.02302285007785903,
+      "orthogonality": 0.22836779932916207,
+      "n_imfs": 4,
+      "runtime_s": 0.10313296318054199,
+      "separation": 0.6965482350356179
+    }
+  },
+  "rho_sweep": {
+    "rho": [
+      2,
+      3,
+      4,
+      5,
+      7,
+      10
+    ],
+    "fingerprint_err": [
+      6.894627700177606,
+      6.329335598371082,
+      5.623825916922465,
+      5.646554751209753,
+      5.562909930475495,
+      5.655238385381264
+    ]
+  },
+  "invariance": {
+    "isotropic BEMD": 0.8720484409342546,
+    "ST-BEMD": 0.8736752793218817
+  },
+  "monogenic_amp_relerr": 0.19413436014265054
+}

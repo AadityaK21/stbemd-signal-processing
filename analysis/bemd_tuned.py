@@ -12,6 +12,7 @@ BEMD on real fingerprints -- every RBF-interpolation variant sits at ~12-15 deg.
 The large accuracy gain comes from switching the envelope PARADIGM
 (interpolation -> local averaging), not from tuning the RBF.
 """
+import _bootstrap  # noqa: F401  (puts the source dirs on sys.path)
 import numpy as np
 from scipy.interpolate import RBFInterpolator
 from bemd import find_extrema_2d, _corner_anchor

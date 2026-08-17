@@ -13,7 +13,9 @@ form -- a dense M x M solve per envelope, O(M^3) -- as opposed to the windowed
 local-average variant in stbemd.py.
 
 KEY FINDING: this literal method performs far WORSE than isotropic BEMD on real
-fingerprints (~42 deg vs ~12 deg). An eps-sweep shows the isotropic limit
+fingerprints -- 39.3 deg for metric='Sinv' and 48.6 for metric='S', against
+13.7 for isotropic BEMD and 8.3 for the corrected local form (measured
+2026-08-17 on data/fingerprint.npy). An eps-sweep shows the isotropic limit
 (large eps) recovers standard-BEMD behaviour and it degrades monotonically as
 anisotropy increases -- i.e. anisotropic RBF interpolation is ill-conditioned and
 overshoots. Anisotropy is only safe in a bounded (averaging) envelope.
@@ -21,6 +23,7 @@ overshoots. Anisotropy is only safe in a bounded (averaging) envelope.
 metric='Sinv' (faithful): M_j proportional to S_j^{-1} (elongates ACROSS ridge,
     as literally written). metric='S': geometric correction, elongates ALONG ridge.
 """
+import _bootstrap  # noqa: F401  (puts the source dirs on sys.path)
 import numpy as np
 from scipy.ndimage import gaussian_filter
 from bemd import find_extrema_2d, _corner_anchor
@@ -140,7 +143,8 @@ def stbemd_rbf(signal, max_imfs=4, max_sift=8, sd_thresh=0.25, extrema_min=8,
 if __name__ == "__main__":
     import time
     from metrics import reconstruction_error, local_orientation_error
-    fp = np.load("data/fingerprint.npy")
+    from _paths import fingerprint
+    fp = fingerprint()
     for metric in ["Sinv", "S"]:
         t = time.time(); imfs, res = stbemd_rbf(fp, metric=metric)
         print(f"metric={metric:5} recon={reconstruction_error(fp,imfs,res):.1e} "

@@ -1,0 +1,118 @@
+{
+  "multidirectional": {
+    "pseudo-BEMD": {
+      "index_of_orthogonality": -2.042240885175082,
+      "energy_ratio": 3.042240885175082,
+      "energy_leakage": 2.042240885175082,
+      "imf_mean_abs_corr": 0.026681303339179008,
+      "spectral_overlap_mean": 0.8532673259402426,
+      "imf1_coherence": 0.9147093121583383,
+      "recon_err": 1.9965957710942538e-16,
+      "n_imfs": 6,
+      "runtime_s": 0.9305198192596436,
+      "separation": 0.5461661277542484,
+      "orthogonality_dir": 0.02774159867431118
+    },
+    "serial-EMD": {
+      "index_of_orthogonality": 0.03300576730401182,
+      "energy_ratio": 0.9669942326959882,
+      "energy_leakage": -0.03300576730401182,
+      "imf_mean_abs_corr": 0.039883748682292976,
+      "spectral_overlap_mean": 0.6558481073513814,
+      "imf1_coherence": 0.9040510127662852,
+      "recon_err": 1.2137619416339872e-16,
+      "n_imfs": 6,
+      "runtime_s": 0.042725324630737305,
+      "separation": 0.8825328397746874,
+      "orthogonality_dir": 0.04162839571446248
+    },
+    "DEMD": {
+      "index_of_orthogonality": -0.24313238367415974,
+      "energy_ratio": 1.2431323836741597,
+      "energy_leakage": 0.24313238367415974,
+      "imf_mean_abs_corr": 0.009900669342261205,
+      "spectral_overlap_mean": 0.8978047507972071,
+      "imf1_coherence": 0.6961300177203265,
+      "recon_err": 3.099240314480917e-17,
+      "n_imfs": 6,
+      "runtime_s": 0.13439416885375977,
+      "separation": 0.492262998382553,
+      "orthogonality_dir": 0.009987629245172968
+    },
+    "isotropic BEMD": {
+      "index_of_orthogonality": -0.18658928900841026,
+      "energy_ratio": 1.1865892890084102,
+      "energy_leakage": 0.18658928900841026,
+      "imf_mean_abs_corr": 0.05043184154333715,
+      "spectral_overlap_mean": 0.45594144507088846,
+      "imf1_coherence": 0.3305836820220543,
+      "recon_err": 8.492284257248039e-17,
+      "n_imfs": 3,
+      "runtime_s": 0.047986745834350586,
+      "separation": 0.7619087938654915,
+      "orthogonality_dir": 0.04981724493211385
+    }
+  },
+  "fingerprint": {
+    "pseudo-BEMD": {
+      "index_of_orthogonality": -2.7032012568926684,
+      "energy_ratio": 3.7032012568926684,
+      "energy_leakage": 2.7032012568926684,
+      "imf_mean_abs_corr": 0.07195752395656399,
+      "spectral_overlap_mean": 0.9194415475065323,
+      "imf1_coherence": 0.49501169550960755,
+      "recon_err": 2.251477393236413e-16,
+      "n_imfs": 6,
+      "runtime_s": 1.1759834289550781,
+      "local_orient_err_deg": 21.647705440525254
+    },
+    "serial-EMD": {
+      "index_of_orthogonality": -0.26291960102451734,
+      "energy_ratio": 1.2629196010245174,
+      "energy_leakage": 0.26291960102451734,
+      "imf_mean_abs_corr": 0.1749691963051109,
+      "spectral_overlap_mean": 0.8529532487472652,
+      "imf1_coherence": 0.5033181298960153,
+      "recon_err": 1.1850436190586057e-16,
+      "n_imfs": 6,
+      "runtime_s": 0.04496169090270996,
+      "local_orient_err_deg": 13.250445862520872
+    },
+    "DEMD": {
+      "index_of_orthogonality": -0.3879567788482835,
+      "energy_ratio": 1.3879567788482834,
+      "energy_leakage": 0.3879567788482835,
+      "imf_mean_abs_corr": 0.02976032434816097,
+      "spectral_overlap_mean": 0.9163639141247361,
+      "imf1_coherence": 0.45287334257292283,
+      "recon_err": 2.6458042875044286e-17,
+      "n_imfs": 6,
+      "runtime_s": 0.2071685791015625,
+      "local_orient_err_deg": 20.164112298649222
+    },
+    "isotropic BEMD": {
+      "index_of_orthogonality": 0.13951894122671765,
+      "energy_ratio": 0.8604810587732823,
+      "energy_leakage": -0.13951894122671765,
+      "imf_mean_abs_corr": 0.1047086392007026,
+      "spectral_overlap_mean": 0.7425636906663475,
+      "imf1_coherence": 0.43210915233624114,
+      "recon_err": 6.960989379443383e-17,
+      "n_imfs": 3,
+      "runtime_s": 0.3300044536590576,
+      "local_orient_err_deg": 8.411984038169555
+    }
+  },
+  "multidirectional_info": {
+    "freqs": [
+      4.0,
+      8.0,
+      16.0
+    ],
+    "thetas": [
+      25.0,
+      80.0,
+      135.0
+    ]
+  }
+}

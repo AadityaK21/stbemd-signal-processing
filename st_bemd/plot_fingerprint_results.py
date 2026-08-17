@@ -2,12 +2,11 @@
 plot_fingerprint_results.py
 ===========================
 Self-contained script that reproduces every fingerprint plot in the report.
-Run it from inside the emd2d/ folder (so the baseline modules import):
+Run it from the project root:
 
-    cd emd2d
-    python plot_fingerprint_results.py
+    python st_bemd/plot_fingerprint_results.py
 
-It writes three PNGs to ./plots/ :
+It writes three PNGs to outputs/figures/ :
     1. fp_orientation.png   -- print + ridge orientation + coherence
     2. fp_imf_error.png     -- IMF-1 per method + orientation-error maps
     3. fp_metrics.png       -- bar chart of the standard metrics
@@ -16,13 +15,12 @@ The comments explain the matplotlib patterns you will reuse for any other plot
 (grayscale images, an HSV orientation field, masked error maps, shared
 colorbars, grouped bar charts).
 """
-import os
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")              # headless backend: render straight to file, no GUI
 import matplotlib.pyplot as plt
 
-# project modules (must be run from the emd2d/ directory)
+# project modules — importable from anywhere thanks to _paths.bootstrap()
 from pseudo_bemd import pseudo_bemd
 from serial_emd import serial_emd
 from demd import demd
@@ -31,18 +29,15 @@ from structure_tensor import orientation_and_coherence
 import metrics as Mdir
 import emd_metrics_standard as Mstd
 
-PLOTS = "plots"
-os.makedirs(PLOTS, exist_ok=True)
+from _paths import FIGURES, ensure_outputs, fingerprint as load_fingerprint
+
+ensure_outputs()
+PLOTS = str(FIGURES)
 
 
 # ---------------------------------------------------------------------------
 # 0. Load the fingerprint and run the four baselines
 # ---------------------------------------------------------------------------
-def load_fingerprint(path="../data/fingerprint.npy"):
-    """Load the pre-saved real fingerprint (90x90, float, zero-mean)."""
-    return np.load(path)
-
-
 def run_baselines(fp):
     """Return an ordered dict {name: (imfs, residual)} for the four methods."""
     decomp = {}

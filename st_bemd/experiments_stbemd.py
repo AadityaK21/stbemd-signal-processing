@@ -28,8 +28,11 @@ from bemd import bemd
 from demd import demd
 from stbemd import stbemd
 
-FIG = "/home/claude/figures"
-RES = "/home/claude/results"
+from _paths import FIGURES, RESULTS, ensure_outputs, fingerprint
+
+ensure_outputs()
+FIG = str(FIGURES)
+RES = str(RESULTS)
 
 
 def loc_err_map(imf, ref):
@@ -41,7 +44,7 @@ def loc_err_map(imf, ref):
 
 # ---------------------------------------------------------------------------
 def fig_fingerprint():
-    fp = np.load("/home/claude/data/fingerprint.npy")
+    fp = fingerprint()
     ib, ir = bemd(fp); sb, sr = stbemd(fp)
     fig, ax = plt.subplots(2, 3, figsize=(11, 7))
     th_ref, _ = orientation_and_coherence(fp)
@@ -163,7 +166,7 @@ def main():
     fv = varying_orientation(96)[0]
     results["varying"] = bench(fv, fv)
     print("benchmarking fingerprint...")
-    fp = np.load("/home/claude/data/fingerprint.npy")
+    fp = fingerprint()
     results["fingerprint"] = bench(fp, fp)
     print("benchmarking two-orientation (out-of-class)...")
     f2, info = two_orientation(80)

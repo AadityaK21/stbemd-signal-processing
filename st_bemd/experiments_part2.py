@@ -8,8 +8,8 @@ Mid-semester-review experiments:
       variance case, to show how the baselines fail near the core/delta;
   (C) the standard literature EMD-quality metrics applied to all four baselines.
 
-Outputs figures to /home/claude/figures/ and numbers to
-/home/claude/results/results_part2.json
+Outputs figures to outputs/figures/ and numbers to
+outputs/results/results_part2.json
 """
 import json, time
 import numpy as np
@@ -26,8 +26,11 @@ import metrics as Mdir
 import emd_metrics_standard as Mstd
 from structure_tensor import orientation_and_coherence
 
-FIG = "/home/claude/figures"
-RES = "/home/claude/results"
+from _paths import FIGURES, RESULTS, ensure_outputs, fingerprint
+
+ensure_outputs()
+FIG = str(FIGURES)
+RES = str(RESULTS)
 RD, BU = "RdBu_r", None
 
 
@@ -132,7 +135,7 @@ def experiment_multidirectional():
 # (B) REAL FINGERPRINT
 # ===========================================================================
 def experiment_fingerprint():
-    fp = np.load("/home/claude/data/fingerprint.npy")
+    fp = fingerprint()
     decomp = run_all(fp)
     th_ref, coh_ref = orientation_and_coherence(fp)
 
