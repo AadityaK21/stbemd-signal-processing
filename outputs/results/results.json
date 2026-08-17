@@ -1,11 +1,11 @@
 {
   "orientation_bias_mean_err": {
-    "pseudo-BEMD": 9.198237245045727,
-    "DEMD": 0.16071241740452108,
-    "isotropic BEMD": 0.05656831188037899
+    "pseudo-BEMD": 9.19823724504573,
+    "DEMD": 0.16071241740452039,
+    "isotropic BEMD": 0.05656831188047644
   },
   "serial_scan_offdiag_corr_mean": 0.6981075270614445,
-  "serial_scan_offdiag_corr_min": 0.5519919572542238,
+  "serial_scan_offdiag_corr_min": 0.551991957254224,
   "mean_coherence": {
     "plane": 0.9782006779503924,
     "two_orientation": 0.01951700116646045,
@@ -14,55 +14,55 @@
   "benchmark_two_orientation": {
     "pseudo-BEMD": {
       "n_imfs": 6,
-      "recon_err": 1.0667384582494388e-16,
-      "orthogonality": 0.030997584018376566,
-      "separation": 0.680285882867021,
-      "runtime_s": 0.9879074096679688
+      "recon_err": 1.124178610998005e-16,
+      "orthogonality": 0.03095768607671001,
+      "separation": 0.6802858828670209,
+      "runtime_s": 0.8045210838317871
     },
     "serial-EMD (row)": {
       "n_imfs": 6,
-      "recon_err": 1.1033391952855195e-16,
-      "orthogonality": 0.06854705820719838,
-      "separation": 0.7122116145102222,
-      "runtime_s": 0.044200897216796875
+      "recon_err": 1.1188093958921706e-16,
+      "orthogonality": 0.06854705820719845,
+      "separation": 0.712211614510222,
+      "runtime_s": 0.05025029182434082
     },
     "DEMD": {
       "n_imfs": 6,
-      "recon_err": 1.8291042387147057e-17,
-      "orthogonality": 0.0015746505363986674,
+      "recon_err": 1.7383218632054914e-17,
+      "orthogonality": 0.0015784454470665688,
       "separation": 0.9123801706781234,
-      "runtime_s": 0.09216833114624023
+      "runtime_s": 0.11078381538391113
     },
     "isotropic BEMD": {
       "n_imfs": 3,
-      "recon_err": 6.602621768200582e-17,
-      "orthogonality": 0.0705957406449179,
-      "separation": 0.691321891979944,
-      "runtime_s": 0.035439252853393555
+      "recon_err": 6.413080949278008e-17,
+      "orthogonality": 0.07059574064455244,
+      "separation": 0.691321891979936,
+      "runtime_s": 0.039943695068359375
     }
   },
   "benchmark_varying_orientation": {
     "pseudo-BEMD": {
-      "orthogonality": 0.02359443782523547,
-      "local_orient_err_deg": 0.9800099299701145
+      "orthogonality": 0.017486294526127735,
+      "local_orient_err_deg": 0.9800099299701143
     },
     "serial-EMD (row)": {
-      "orthogonality": 0.12029035459503117,
+      "orthogonality": 0.12029035459503129,
       "local_orient_err_deg": 0.7097598322534698
     },
     "DEMD": {
-      "orthogonality": 0.03745435688463541,
+      "orthogonality": 0.03742084593178823,
       "local_orient_err_deg": 6.7326524863442625
     },
     "isotropic BEMD": {
-      "orthogonality": 0.13142928323595707,
-      "local_orient_err_deg": 0.3114451823658572
+      "orthogonality": 0.13142928323554107,
+      "local_orient_err_deg": 0.3114451823660359
     }
   },
   "orientation_invariance_corr": {
-    "pseudo-BEMD": 0.6555027795394943,
-    "serial-EMD (row)": 0.9987911286977563,
+    "pseudo-BEMD": 0.6555004697300019,
+    "serial-EMD (row)": 0.9987911286977561,
     "DEMD": 0.9983880930856253,
-    "isotropic BEMD": 0.999711310393112
+    "isotropic BEMD": 0.9997113103931107
   }
 }

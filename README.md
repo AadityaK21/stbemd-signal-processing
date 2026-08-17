@@ -125,21 +125,28 @@ Measured on fingerprint-density input:
 
 | Size | Extrema | BEMD (global RBF) | ST-BEMD (local) | Speedup |
 |---|---|---|---|---|
-| 64² | 873 | 0.06 s | 0.05 s | 1.1× |
-| 128² | 1,956 | 0.48 s | 0.19 s | 2.5× |
-| 192² | 4,051 | 2.04 s | 0.35 s | 5.9× |
-| 256² | 8,313 | 44.18 s | 1.41 s | **31.4×** |
+| 64² | 873 | 0.08 s | 0.04 s | 1.8× |
+| 128² | 1,956 | 0.53 s | 0.15 s | 3.5× |
+| 192² | 4,051 | 2.25 s | 0.29 s | 7.8× |
+| 256² | 8,313 | 107.90 s | 1.29 s | **83.5×** |
 
 This is a complexity difference, not a constant factor. Global thin-plate-spline RBF
 solves a dense n×n system, roughly **O(n³)** in the number of extrema n; the local
 anisotropic envelope sums over a ±3σ window, roughly **O(n)**.
 
-**The 31× figure is the best case, not the typical one.** On *smooth* signals with
-few extrema the local envelope is actually the slower option below about 128²,
-because it pays a fixed per-pixel cost while the global solve's system stays small.
+**Treat the headline ratio as hardware-dependent, not as a property of the method.**
+The same code and the same input measured **31×** on one machine and **83.5×** on
+another. ST-BEMD took about the same wall time on both (1.4 s vs 1.3 s); what moved
+was the baseline's dense solve, 44 s against 108 s, which depends on the BLAS/LAPACK
+build behind NumPy far more than on anything in this repo. The complexity gap is
+real; any single multiplier is a property of the machine that produced it.
+
+**And it is the best case, not the typical one.** On *smooth* signals with few
+extrema the local envelope is actually the slower option below about 128², because it
+pays a fixed per-pixel cost while the global solve's system stays small.
 `figR4_runtime.png` shows that regime honestly: the curves cross above 128² and reach
-only 2.6× at 256². Quote 31× for fingerprint-density input and 2.6× for smooth input;
-quoting the first without the qualifier overstates the result.
+only 3.1× at 256². Quote the large number for fingerprint-density input and 3.1× for
+smooth input; quoting the first without both qualifiers overstates the result.
 
 → `outputs/benchmark.json`, `outputs/figures/figR4_runtime.png`
 
