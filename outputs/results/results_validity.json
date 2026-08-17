@@ -1,0 +1,56 @@
+{
+  "selected_sigma": 4.0,
+  "selection_scores": {
+    "1.0": 6.392707618637425,
+    "1.5": 5.28289022865231,
+    "2.0": 4.501988166888178,
+    "3.0": 3.788764139651575,
+    "4.0": 3.6036561932502797,
+    "6.0": 3.791600917509744
+  },
+  "held_out": {
+    "iso-GLOBAL BEMD (baseline)": {
+      "orientation_error": 15.912416147578446,
+      "imf_validity": 0.13139064023650587
+    },
+    "iso-LOCAL (rho=1)": {
+      "orientation_error": 10.080881117535393,
+      "imf_validity": 0.20963334991775728
+    },
+    "aniso-LOCAL (rho=4) ST-BEMD": {
+      "orientation_error": 9.343203309450127,
+      "imf_validity": 0.18486961056633536
+    },
+    "Gaussian high-pass sigma=4.0": {
+      "orientation_error": 4.863407417321694,
+      "imf_validity": 0.3828384545555584
+    }
+  },
+  "sigma_curve": {
+    "1.0": {
+      "orientation_error": 8.133236911482014,
+      "imf_validity": 0.3194934243972222
+    },
+    "1.5": {
+      "orientation_error": 6.778448150585847,
+      "imf_validity": 0.3433388523918713
+    },
+    "2.0": {
+      "orientation_error": 5.852469501088486,
+      "imf_validity": 0.36348312684795275
+    },
+    "3.0": {
+      "orientation_error": 5.047850857711739,
+      "imf_validity": 0.37767280152781496
+    },
+    "4.0": {
+      "orientation_error": 4.863407417321694,
+      "imf_validity": 0.3828384545555584
+    },
+    "6.0": {
+      "orientation_error": 5.126408093872454,
+      "imf_validity": 0.3873864752702497
+    }
+  },
+  "tradeoff_correlation": -0.9379691885996109
+}

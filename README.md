@@ -203,10 +203,161 @@ gentle rotation (low curv)    0.24   0.24
 
 The fingerprint metric is coherence-weighted **self-reference**: it measures whether
 the IMF preserved the input's local orientation, not whether that orientation was
-correct. The synthetic tie suggests part of the fingerprint gain may be the local
-envelope agreeing with the structure tensor rather than recovering true orientation.
+correct.
 
 → `outputs/figures/figR2_synthetic.png`, `outputs/figures/rho_sweep.png`
+
+### The fingerprint metric does not measure orientation recovery
+
+`analysis/control_smoothing.py` tests the metric itself, by scoring estimators that
+have **no orientation input at all** — a plain Gaussian high-pass, `imf = f − G_σ ∗ f`.
+No extrema, no envelope, no sifting, no structure tensor.
+
+```
+estimator                       fingerprint      analytic GT
+                                 (self-ref)     (closed form)
+identity (returns input)              0.00             0.43
+Gaussian high-pass σ=4.0              4.23             0.42
+Gaussian high-pass σ=1.0              7.26             0.27
+iso-GLOBAL BEMD (baseline)           13.71             0.42
+iso-LOCAL (ρ=1)                       9.43             0.43
+aniso-LOCAL (ρ=4)  ST-BEMD            8.25             0.41
+```
+
+**A Gaussian blur subtracted from the input scores 4.23°, roughly twice as good as
+ST-BEMD's 8.25°.** And the identity map — returning the input untouched, extracting
+nothing — scores a perfect 0.00, because `local_orientation_error(f, f)` is zero by
+construction. The metric's global optimum is to do nothing, so it cannot reward
+extraction; it can only penalise disturbance. It ranks estimators by how gently they
+alter the orientation field.
+
+On the closed-form column every estimator lands between 0.27° and 0.43°, and the best
+score belongs to the σ=1 high-pass. There is no signal there either way.
+
+**What this means for the headline.** The 13.71° → 8.25° improvement is real as a
+measurement, but it is evidence that ST-BEMD's local envelope disturbs the
+orientation field less than a global RBF interpolant — not that it recovers
+orientation better. Those are different claims, and only the first is supported.
+
+**What it does not mean.** The Gaussian high-pass is not a better method; it is a
+probe. It produces no IMF in any meaningful sense — no local-mean-zero property, no
+multi-scale decomposition, nothing to iterate. That is precisely the point: an
+estimator that fails at the actual task still wins the metric, so the metric is not
+measuring the task.
+
+→ `outputs/results/results_control.json`, `outputs/figures/figR5_metric_control.png`
+
+### Re-test: the orientation metric is measuring how little you sifted
+
+`analysis/metric_validity.py` repeats the control with two corrections. First, the
+high-pass σ is now chosen on prints 0–14 and scored on prints 15–29, since sweeping σ
+on the same prints it was scored on was selection bias — the error this project
+objects to elsewhere. Second, it adds the metric the comparison should have used all
+along: **IMF validity**, ‖local mean‖ / ‖mode‖, where the local mean is the average of
+the envelopes through the mode's own extrema. Driving that to zero is what sifting
+*is*; a Gaussian high-pass has no mechanism to achieve it.
+
+Held out, on 15 unseen prints:
+
+```
+estimator                      orient err    IMF validity
+                                    (deg)   (0 = is an IMF)
+iso-GLOBAL BEMD (baseline)          15.91            0.131
+iso-LOCAL (ρ=1)                     10.08            0.210
+aniso-LOCAL (ρ=4)  ST-BEMD           9.34            0.185
+Gaussian high-pass σ=4.0             4.86            0.383
+```
+
+The selection bias was **not** the explanation — the control still wins on
+orientation, held out. But it is roughly twice as far from being an IMF as any real
+method, and across all 10 estimators the two metrics are anti-correlated at
+**r = −0.94**. Every estimator that scores well on orientation scores badly on
+validity, in a near-straight line.
+
+That is the mechanism, stated precisely: **the orientation metric is largely
+measuring how little the estimator sifted.** Do nothing and score 0.00. Sift gently
+and score well. Sift properly — which is the job — and score worse. It is not a
+measure of orientation recovery at any point on that line.
+
+Two consequences, and they cut in opposite directions:
+
+- The 13.71° → 8.25° headline cannot be read as "ST-BEMD recovers orientation
+  better". It supports only "ST-BEMD's envelope disturbs the orientation field less
+  than a global RBF interpolant".
+- The Gaussian high-pass is not a rival method, and the trade-off plot is why. It
+  buys its orientation score by not doing the task. On IMF validity the ordering
+  reverses completely and the baseline wins outright (0.131), which is the honest
+  cost of this repo's local-averaging envelope — it does not interpolate the extrema,
+  so its modes are further from strict IMFs. That cost was noted in Limitations from
+  the start; here it finally has a number.
+
+Anisotropy earns a small, clean point here: ST-BEMD is better than iso-LOCAL on
+*both* axes (9.34 vs 10.08, and 0.185 vs 0.210). Same envelope machinery, only the
+kernel shape differs. It is a modest result, but it is one the metric cannot
+manufacture.
+
+→ `outputs/results/results_validity.json`, `outputs/figures/figR6_metric_tradeoff.png`
+
+### A non-circular real-data test — and the one result that survives it
+
+`analysis/independent_eval.py` removes the circularity two ways at once.
+
+**A different instrument.** `analysis/gabor_orientation.py` estimates orientation with
+a bank of oriented Gabor quadrature pairs — a matched-filter principle sharing no
+machinery with the structure tensor that ST-BEMD steers by. It agrees with the tensor
+to 0.02° on plane waves of known angle.
+
+**A different protocol.** Changing the instrument alone fixes nothing, because the
+identity map still scores 0.00 against any self-referential reference. So the
+reference orientation is taken from the **clean** print while the methods are given a
+**noisy** one. Now preserving the input no longer wins by default; recovering the
+underlying ridge orientation through noise is the only way to score well.
+
+Reference and modes are measured with filters pinned to the clean print's ridge
+wavelength, prints are upsampled 2× (at native 3.2 px ridges the two instruments
+disagree by 7.6° on the *same* image, which would swamp everything), and the scored
+mode is whichever IMF matches the input's own ridge wavelength — because EMD's IMF-1
+on a noisy image is the *noise*, not the ridges.
+
+Mean orientation error against the clean reference, 12 prints:
+
+```
+                          ── Gabor bank ──      ── structure tensor ──
+                        20 dB  10 dB   5 dB    20 dB  10 dB   5 dB
+identity (does nothing)  2.72   4.79   7.55     4.53   7.26   9.56
+Gaussian high-pass σ=4   9.58   9.91  12.01     4.92   7.64   9.98
+ST-BEMD (ρ=4)           10.97  12.57  15.06     6.85  10.56  13.76
+iso-LOCAL (ρ=1)         10.69  11.92  16.65     7.07  10.17  15.58
+iso-GLOBAL BEMD         10.04  12.87  18.33     6.67  10.79  17.33
+```
+
+**ST-BEMD degrades more gracefully under noise than the isotropic baseline, and this
+is the project's only non-circular real-data result that favours the method.** The
+advantage is absent in clean conditions and grows as noise rises:
+
+```
+SNR      iso-GLOBAL   ST-BEMD     gap    (tensor gap)
+20 dB        10.04     10.97    −0.93          −0.18
+10 dB        12.87     12.57    +0.30          +0.23
+ 5 dB        18.33     15.06    +3.27          +3.56
+```
+
+At 20 dB ST-BEMD is slightly *worse*. At 5 dB it is ahead by 3.3°, and 3.6° under the
+second instrument — clear of the ~1.5° instrument floor, with both instruments
+agreeing on the full ranking. That is a defensible claim: **anisotropic local
+envelopes are more noise-robust than global RBF interpolation**, not that they
+estimate orientation better in general.
+
+**What still does not work.** The identity map remains the lowest-error entry (5.02°).
+The protocol reduced its advantage — it scored 0.00 before — but did not remove it,
+because orientation is an intrinsically noise-robust property: window-averaged
+estimators barely move at these SNRs, so preserving the image still preserves the
+field. And the Gaussian high-pass still beats every EMD method here, exactly as it did
+before; only the IMF-validity axis separates them. This protocol is **necessary but
+not sufficient**, and no orientation number in this project should be quoted without
+that caveat.
+
+→ `outputs/results/results_independent.json`, `outputs/figures/figR7_independent_eval.png`
 
 ---
 
@@ -265,6 +416,10 @@ slowest). Individual scripts:
 | `analysis/ablation.py` | envelope vs anisotropy — the decisive experiment |
 | `analysis/eval_full.py` | 30-print study, curvature bins, analytic GT, noise, runtime |
 | `analysis/eval_imf_study.py` | 100-print IMF-count and orthogonality study |
+| `analysis/control_smoothing.py` | **is the fingerprint metric measuring anything?** |
+| `analysis/metric_validity.py` | held-out re-test + IMF validity; the trade-off plot |
+| `analysis/independent_eval.py` | **the non-circular real-data test** |
+| `analysis/gabor_orientation.py` | independent orientation instrument (library + self-test) |
 | `analysis/sweep_rho.py` | anisotropy-ratio sweep (shape, not argmin) |
 | `analysis/stbemd_rbf.py` | the literal formulation, for contrast |
 | `analysis/bemd_tuned.py` | does tuning rescue the baseline? (no) |

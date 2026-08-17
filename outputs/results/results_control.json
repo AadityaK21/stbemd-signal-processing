@@ -1,0 +1,62 @@
+{
+  "identity (returns input)": {
+    "fingerprint_mean": 0.0,
+    "fingerprint_std": 0.0,
+    "analytic_mean": 0.4258707535951946,
+    "analytic_std": 0.08810016230424667
+  },
+  "Gaussian high-pass sigma=1.0": {
+    "fingerprint_mean": 7.262972265059718,
+    "fingerprint_std": 2.809817781198208,
+    "analytic_mean": 0.2745520956041441,
+    "analytic_std": 0.11894747594803032
+  },
+  "Gaussian high-pass sigma=1.5": {
+    "fingerprint_mean": 6.0306691896190765,
+    "fingerprint_std": 2.30110237846837,
+    "analytic_mean": 0.3233503472874776,
+    "analytic_std": 0.09535898810379098
+  },
+  "Gaussian high-pass sigma=2.0": {
+    "fingerprint_mean": 5.177228833988331,
+    "fingerprint_std": 2.0140778403729263,
+    "analytic_mean": 0.37039156447792687,
+    "analytic_std": 0.08638097914749406
+  },
+  "Gaussian high-pass sigma=3.0": {
+    "fingerprint_mean": 4.418307498681657,
+    "fingerprint_std": 1.7832121762435307,
+    "analytic_mean": 0.41555217600182537,
+    "analytic_std": 0.0885103297819595
+  },
+  "Gaussian high-pass sigma=4.0": {
+    "fingerprint_mean": 4.2335318052859865,
+    "fingerprint_std": 1.7563297713335924,
+    "analytic_mean": 0.4248432456967211,
+    "analytic_std": 0.09292086919465638
+  },
+  "Gaussian high-pass sigma=6.0": {
+    "fingerprint_mean": 4.459004505691099,
+    "fingerprint_std": 1.9255275631862538,
+    "analytic_mean": 0.4273201587088106,
+    "analytic_std": 0.09686471646527342
+  },
+  "iso-GLOBAL BEMD (baseline)": {
+    "fingerprint_mean": 13.714067008834805,
+    "fingerprint_std": 6.156792456574092,
+    "analytic_mean": 0.41569886721178423,
+    "analytic_std": 0.09036291377698961
+  },
+  "iso-LOCAL  (rho=1)": {
+    "fingerprint_mean": 9.429000220756333,
+    "fingerprint_std": 3.8498718954095126,
+    "analytic_mean": 0.4292310762706045,
+    "analytic_std": 0.07344272833216962
+  },
+  "aniso-LOCAL(rho=4)  ST-BEMD": {
+    "fingerprint_mean": 8.245818374409975,
+    "fingerprint_std": 3.1442750541490754,
+    "analytic_mean": 0.40976668244713005,
+    "analytic_std": 0.09102963984739695
+  }
+}
