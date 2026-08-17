@@ -77,10 +77,15 @@ def main(argv=None) -> int:
         start = time.perf_counter()
         # sys.executable, not "python" — so this uses whichever interpreter
         # launched it, including a virtualenv that is not on PATH.
+        # encoding/errors are explicit: without them subprocess decodes child
+        # output with the locale codec (cp1252 on Windows) and any degree sign
+        # or Greek letter a script prints kills the run. Same reason for the
+        # explicit encoding on write_text below.
         proc = subprocess.run([sys.executable, str(ROOT / script)],
-                              capture_output=True, text=True, cwd=ROOT)
+                              capture_output=True, text=True, cwd=ROOT,
+                              encoding="utf-8", errors="replace")
         elapsed = time.perf_counter() - start
-        log.write_text(proc.stdout + proc.stderr)
+        log.write_text(proc.stdout + proc.stderr, encoding="utf-8")
 
         ok = proc.returncode == 0
         results.append((script, ok, elapsed))

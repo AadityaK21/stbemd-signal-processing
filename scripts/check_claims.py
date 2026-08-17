@@ -40,7 +40,12 @@ def load(*parts: str):
             f"\n{path} is missing — regenerate the results first:\n"
             f"    python scripts/fetch_data.py && python run_all.py\n"
         )
-    return json.loads(path.read_text())
+    # encoding is explicit everywhere in this file: Path.read_text() defaults to
+    # the locale encoding, which is cp1252 on Windows, and the README is full of
+    # degree signs and Greek letters. Without this the script dies on Windows
+    # after printing every claim as ok — which is the most confusing possible
+    # way to fail.
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def build_claims():
@@ -91,7 +96,8 @@ def build_claims():
 def check_readme_mentions(claims):
     """Every claimed value should literally appear in the README text."""
     # Strip thousands separators so "8,313" in a table matches the value 8313.
-    text = re.sub(r"(?<=\d),(?=\d\d\d\b)", "", README.read_text())
+    text = re.sub(r"(?<=\d),(?=\d\d\d\b)", "",
+                  README.read_text(encoding="utf-8"))
     missing = []
     for label, stated, _measured, _tol in claims:
         needle = f"{stated:g}"
