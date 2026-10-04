@@ -1,5 +1,7 @@
 # ST-BEMD — Direction-Adaptive EMD for 2-D Signals
 
+> Case study with figures and context: **[aadityakumawat.me/work/st-bemd](https://aadityakumawat.me/work/st-bemd/)**
+
 Structure-tensor-guided Empirical Mode Decomposition for non-linear, non-stationary
 2-D signals, benchmarked against four EMD baselines on synthetic signals and real
 fingerprints.
